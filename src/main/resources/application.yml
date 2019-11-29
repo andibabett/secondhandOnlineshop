@@ -1,0 +1,9 @@
+server.port: 8085
+spring:
+  jpa:
+    hibernate.ddl-auto: update
+    hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: jdbc:mysql://localHost:3306/magazin_vopsele
+    username: magazin_vopsele
+    password: magazin_vopsele
