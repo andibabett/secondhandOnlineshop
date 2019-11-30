@@ -1,10 +1,12 @@
 package org.fasttrackit.magazindevopsele.service;
 
 import org.fasttrackit.magazindevopsele.domain.Product;
+import org.fasttrackit.magazindevopsele.exception.ResourceNotFoundException;
 import org.fasttrackit.magazindevopsele.persistance.ProductRepository;
 import org.fasttrackit.magazindevopsele.transfer.SaveProductRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,7 @@ public class ProductService {
 
     public Product createProduct(SaveProductRequest request) {
 
-        LOGGER.info("Creating product {}" , request);
+        LOGGER.info("Creating product {}", request);
 
         Product product = new Product();
         product.setDescription(request.getDescription());
@@ -34,4 +36,31 @@ public class ProductService {
 
         return productRepository.save(product);
     }
+
+    public Product getProduct(long id) {
+        LOGGER.info("Retrivering product {}" + id);
+
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Product " + id + "does not exist."));
+    }
+
+    public Product updateProduct(long id, SaveProductRequest request) {
+        LOGGER.info("Udating product {}: {}", id, request);
+
+        Product product = getProduct(id);
+
+        BeanUtils.copyProperties(request, product);
+
+        return productRepository.save(product);
+    }
+
+    public void deleteProduct(long id){
+        LOGGER.info("Deleting product {}", id);
+        productRepository.deleteById(id);
+        LOGGER.info("Deleted product {}", id);
+    }
 }
+
+
+
