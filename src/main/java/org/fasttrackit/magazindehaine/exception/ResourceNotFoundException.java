@@ -1,4 +1,4 @@
-package org.fasttrackit.magazindevopsele.exception;
+package org.fasttrackit.magazindehaine.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
 

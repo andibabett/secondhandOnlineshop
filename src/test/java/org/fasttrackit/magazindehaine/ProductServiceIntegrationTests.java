@@ -1,9 +1,9 @@
-package org.fasttrackit.magazindevopsele;
+package org.fasttrackit.magazindehaine;
 
-import org.fasttrackit.magazindevopsele.domain.Product;
-import org.fasttrackit.magazindevopsele.exception.ResourceNotFoundException;
-import org.fasttrackit.magazindevopsele.service.ProductService;
-import org.fasttrackit.magazindevopsele.transfer.SaveProductRequest;
+import org.fasttrackit.magazindehaine.domain.Product;
+import org.fasttrackit.magazindehaine.exception.ResourceNotFoundException;
+import org.fasttrackit.magazindehaine.service.ProductService;
+import org.fasttrackit.magazindehaine.transfer.SaveProductRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

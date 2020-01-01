@@ -1,4 +1,4 @@
-package org.fasttrackit.magazindevopsele.transfer;
+package org.fasttrackit.magazindehaine.transfer;
 
 import com.sun.istack.NotNull;
 

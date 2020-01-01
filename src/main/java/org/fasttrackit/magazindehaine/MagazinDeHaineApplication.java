@@ -1,13 +1,13 @@
-package org.fasttrackit.magazindevopsele;
+package org.fasttrackit.magazindehaine;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MagazinDeVopseleApplication {
+public class MagazinDeHaineApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MagazinDeVopseleApplication.class, args);
+		SpringApplication.run(MagazinDeHaineApplication.class, args);
 	}
 
 }

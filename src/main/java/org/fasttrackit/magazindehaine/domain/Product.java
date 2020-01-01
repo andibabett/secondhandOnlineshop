@@ -1,4 +1,4 @@
-package org.fasttrackit.magazindevopsele.domain;
+package org.fasttrackit.magazindehaine.domain;
 
 import com.sun.istack.NotNull;
 

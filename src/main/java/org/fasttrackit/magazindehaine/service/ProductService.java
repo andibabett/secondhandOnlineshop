@@ -1,10 +1,10 @@
-package org.fasttrackit.magazindevopsele.service;
+package org.fasttrackit.magazindehaine.service;
 
-import org.fasttrackit.magazindevopsele.domain.Product;
-import org.fasttrackit.magazindevopsele.exception.ResourceNotFoundException;
-import org.fasttrackit.magazindevopsele.persistance.ProductRepository;
-import org.fasttrackit.magazindevopsele.transfer.GetProductsRequest;
-import org.fasttrackit.magazindevopsele.transfer.SaveProductRequest;
+import org.fasttrackit.magazindehaine.domain.Product;
+import org.fasttrackit.magazindehaine.exception.ResourceNotFoundException;
+import org.fasttrackit.magazindehaine.persistance.ProductRepository;
+import org.fasttrackit.magazindehaine.transfer.GetProductsRequest;
+import org.fasttrackit.magazindehaine.transfer.SaveProductRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
