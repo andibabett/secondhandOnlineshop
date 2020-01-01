@@ -64,21 +64,31 @@ class ProductServiceIntegrationTests {
         Product createdProduct = createProduct();
 
         SaveProductRequest request = new SaveProductRequest();
-        request.setName(createdProduct.getName()+ "updated");
-        request.setDescription(createdProduct.getDescription()+ "updated");
-        request.setProductCode(createdProduct.getProductCode()+ "updated");
-        request.setPrice(createdProduct.getPrice()+ 10);
-        request.setQuantity(createdProduct.getQuantity()+ 10);
+        request.setName(createdProduct.getName() + "updated");
+        request.setDescription(createdProduct.getDescription() + "updated");
+        request.setProductCode(createdProduct.getProductCode() + "updated");
+        request.setPrice(createdProduct.getPrice() + 10);
+        request.setQuantity(createdProduct.getQuantity() + 10);
 
         Product updatedProduct = productService.updateProduct(createdProduct.getId(), request);
 
         assertThat(updatedProduct, notNullValue());
-        assertThat(updatedProduct.getId(), is(updatedProduct.getId()));
-        assertThat(updatedProduct.getName(), is(updatedProduct.getName()));
-        assertThat(updatedProduct.getProductCode(), is(updatedProduct.getProductCode()));
-        assertThat(updatedProduct.getDescription(), is(updatedProduct.getDescription()));
-        assertThat(updatedProduct.getPrice(), is(updatedProduct.getPrice()));
-        assertThat(updatedProduct.getQuantity(), is(updatedProduct.getQuantity()));
+        assertThat(updatedProduct.getId(), is(createdProduct.getId()));
+        assertThat(updatedProduct.getName(), is(request.getName()));
+        assertThat(updatedProduct.getProductCode(), is(request.getProductCode()));
+        assertThat(updatedProduct.getDescription(), is(request.getDescription()));
+        assertThat(updatedProduct.getPrice(), is(request.getPrice()));
+        assertThat(updatedProduct.getQuantity(), is(request.getQuantity()));
+
+    }
+
+    @Test(expected = ResourceNotFoundException.class)
+    public void testDeleteProduct_whenExistingProduct_thenProductIsDeleted() {
+        Product product = createProduct();
+
+        productService.deleteProduct(product.getId());
+
+        productService.getProduct(product.getId());
 
     }
 
