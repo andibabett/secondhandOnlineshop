@@ -3,11 +3,14 @@ package org.fasttrackit.magazindevopsele.service;
 import org.fasttrackit.magazindevopsele.domain.Product;
 import org.fasttrackit.magazindevopsele.exception.ResourceNotFoundException;
 import org.fasttrackit.magazindevopsele.persistance.ProductRepository;
+import org.fasttrackit.magazindevopsele.transfer.GetProductsRequest;
 import org.fasttrackit.magazindevopsele.transfer.SaveProductRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -45,6 +48,20 @@ public class ProductService {
                         "Product " + id + "does not exist."));
     }
 
+    public Page<Product> getProducts(GetProductsRequest request, Pageable pageable) {
+       LOGGER.info("Retrieving products: {}", request);
+        if (request != null && request.getPartialName() != null &&
+                request.getMinQuantity() != null) {
+            return productRepository.findByNameContainingAndQuantityGreaterThanEqual(
+                    request.getPartialName(), request.getMinQuantity(), pageable);
+        } else if (request != null && request.getPartialName() != null) {
+            return productRepository.findByNameContaining(
+                    request.getPartialName(), pageable);
+        } else {
+            return productRepository.findAll(pageable);
+        }
+    }
+
     public Product updateProduct(long id, SaveProductRequest request) {
         LOGGER.info("Udating product {}: {}", id, request);
 
@@ -55,11 +72,13 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public void deleteProduct(long id){
+    public void deleteProduct(long id) {
         LOGGER.info("Deleting product {}", id);
         productRepository.deleteById(id);
         LOGGER.info("Deleted product {}", id);
     }
+
+
 }
 
 
