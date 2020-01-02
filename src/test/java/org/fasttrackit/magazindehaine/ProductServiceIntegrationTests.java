@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.greaterThan;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class ProductServiceIntegrationTests {
+public class ProductServiceIntegrationTests {
 
     @Autowired
     private ProductService productService;
