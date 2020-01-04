@@ -1,5 +1,6 @@
 package org.fasttrackit.magazindehaine.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fasttrackit.magazindehaine.domain.Product;
 import org.fasttrackit.magazindehaine.exception.ResourceNotFoundException;
 import org.fasttrackit.magazindehaine.persistance.ProductRepository;
@@ -19,23 +20,18 @@ public class ProductService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 
     private final ProductRepository productRepository;
+    private final ObjectMapper objectMapper;
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, ObjectMapper objectMapper) {
         this.productRepository = productRepository;
+        this.objectMapper = objectMapper;
     }
 
     public Product createProduct(SaveProductRequest request) {
 
         LOGGER.info("Creating product {}", request);
-
-        Product product = new Product();
-        product.setDescription(request.getDescription());
-        product.setName(request.getName());
-        product.setPrice(request.getPrice());
-        product.setProductCode(request.getProductCode());
-        product.setQuantity(request.getQuantity());
-        product.setImageUrl(request.getImageUrl());
+        Product product = objectMapper.convertValue(request, Product.class);
 
         return productRepository.save(product);
     }
@@ -49,7 +45,7 @@ public class ProductService {
     }
 
     public Page<Product> getProducts(GetProductsRequest request, Pageable pageable) {
-       LOGGER.info("Retrieving products: {}", request);
+        LOGGER.info("Retrieving products: {}", request);
         if (request != null && request.getPartialName() != null &&
                 request.getMinQuantity() != null) {
             return productRepository.findByNameContainingAndQuantityGreaterThanEqual(
