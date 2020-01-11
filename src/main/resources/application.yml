@@ -4,6 +4,6 @@ spring:
     hibernate.ddl-auto: update
     hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
   datasource:
-    url: jdbc:mysql://localHost:3306/magazin_vopsele
-    username: magazin_vopsele
-    password: magazin_vopsele
+    url: jdbc:mysql://localHost:3306/secondhandOnlineshop
+    username: secondhand
+    password: secondhand
