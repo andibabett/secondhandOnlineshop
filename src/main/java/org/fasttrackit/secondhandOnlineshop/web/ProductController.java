@@ -3,9 +3,9 @@ package org.fasttrackit.secondhandOnlineshop.web;
 
 import org.fasttrackit.secondhandOnlineshop.domain.Product;
 import org.fasttrackit.secondhandOnlineshop.service.ProductService;
-import org.fasttrackit.secondhandOnlineshop.transfer.GetProductsRequest;
-import org.fasttrackit.secondhandOnlineshop.transfer.ProductResponse;
-import org.fasttrackit.secondhandOnlineshop.transfer.SaveProductRequest;
+import org.fasttrackit.secondhandOnlineshop.transfer.product.GetProductsRequest;
+import org.fasttrackit.secondhandOnlineshop.transfer.product.ProductResponse;
+import org.fasttrackit.secondhandOnlineshop.transfer.product.SaveProductRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +28,6 @@ public class ProductController {
     }
 
 
-    // todo: fix LazyLoading for all endpoints
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody @Valid SaveProductRequest request) {
         Product product = productService.createProduct(request);

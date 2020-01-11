@@ -1,8 +1,8 @@
 package org.fasttrackit.secondhandOnlineshop.web;
 
 import org.fasttrackit.secondhandOnlineshop.service.CartService;
-import org.fasttrackit.secondhandOnlineshop.transfer.AddProductToCartRequest;
-import org.fasttrackit.secondhandOnlineshop.transfer.CartResponse;
+import org.fasttrackit.secondhandOnlineshop.transfer.cart.AddProductToCartRequest;
+import org.fasttrackit.secondhandOnlineshop.transfer.cart.CartResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +33,12 @@ public class CartController {
     public ResponseEntity<CartResponse> getCart(@PathVariable long id) {
         CartResponse cart = cartService.getCart(id);
         return new ResponseEntity<>(cart, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteCart(@PathVariable("id") long id) {
+        cartService.deleteCart(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

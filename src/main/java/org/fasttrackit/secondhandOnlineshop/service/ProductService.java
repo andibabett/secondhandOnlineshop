@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fasttrackit.secondhandOnlineshop.domain.Product;
 import org.fasttrackit.secondhandOnlineshop.exception.ResourceNotFoundException;
 import org.fasttrackit.secondhandOnlineshop.persistance.ProductRepository;
-import org.fasttrackit.secondhandOnlineshop.transfer.GetProductsRequest;
-import org.fasttrackit.secondhandOnlineshop.transfer.ProductResponse;
-import org.fasttrackit.secondhandOnlineshop.transfer.SaveProductRequest;
+import org.fasttrackit.secondhandOnlineshop.transfer.product.GetProductsRequest;
+import org.fasttrackit.secondhandOnlineshop.transfer.product.ProductResponse;
+import org.fasttrackit.secondhandOnlineshop.transfer.product.SaveProductRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -26,18 +26,24 @@ public class ProductService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 
     private final ProductRepository productRepository;
-    private final ObjectMapper objectMapper;
+//    private final ObjectMapper objectMapper;
 
     @Autowired
     public ProductService(ProductRepository productRepository, ObjectMapper objectMapper) {
         this.productRepository = productRepository;
-        this.objectMapper = objectMapper;
+//        this.objectMapper = objectMapper;
     }
 
     public Product createProduct(SaveProductRequest request) {
 
         LOGGER.info("Creating product {}", request);
-        Product product = objectMapper.convertValue(request, Product.class);
+//        Product product = objectMapper.convertValue(request, Product.class);
+        Product product = new Product();
+        product.setName(request.getName());
+        product.setDescription(request.getDescription());
+        product.setPrice(request.getPrice());
+        product.setQuantity(request.getQuantity());
+        product.setImageUrl(request.getImageUrl());
 
         return productRepository.save(product);
     }
@@ -49,6 +55,20 @@ public class ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Product " + id + "does not exist."));
     }
+
+    public Product updateProduct(long id, SaveProductRequest request) {
+        LOGGER.info("Udating product {}: {}", id, request);
+        Product product = getProduct(id);
+        BeanUtils.copyProperties(request, product);
+        return productRepository.save(product);
+    }
+
+    public void deleteProduct(long id) {
+        LOGGER.info("Deleting product {}", id);
+        productRepository.deleteById(id);
+        LOGGER.info("Deleted product {}", id);
+    }
+
 
     @Transactional
     public Page<ProductResponse> getProducts(GetProductsRequest request, Pageable pageable) {
@@ -83,21 +103,6 @@ public class ProductService {
         return new PageImpl<>(productResponses, pageable, products.getTotalElements());
     }
 
-    public Product updateProduct(long id, SaveProductRequest request) {
-        LOGGER.info("Udating product {}: {}", id, request);
-
-        Product product = getProduct(id);
-
-        BeanUtils.copyProperties(request, product);
-
-        return productRepository.save(product);
-    }
-
-    public void deleteProduct(long id) {
-        LOGGER.info("Deleting product {}", id);
-        productRepository.deleteById(id);
-        LOGGER.info("Deleted product {}", id);
-    }
 
 
 }

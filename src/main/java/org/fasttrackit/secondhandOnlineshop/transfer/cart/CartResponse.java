@@ -1,5 +1,7 @@
-package org.fasttrackit.secondhandOnlineshop.transfer;
+package org.fasttrackit.secondhandOnlineshop.transfer.cart;
 
+
+import org.fasttrackit.secondhandOnlineshop.transfer.product.ProductInCartResponse;
 
 import java.util.Set;
 

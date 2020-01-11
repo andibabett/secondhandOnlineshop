@@ -5,9 +5,11 @@ import org.fasttrackit.secondhandOnlineshop.domain.Customer;
 import org.fasttrackit.secondhandOnlineshop.domain.Product;
 import org.fasttrackit.secondhandOnlineshop.exception.ResourceNotFoundException;
 import org.fasttrackit.secondhandOnlineshop.persistance.CartRepository;
-import org.fasttrackit.secondhandOnlineshop.transfer.AddProductToCartRequest;
-import org.fasttrackit.secondhandOnlineshop.transfer.CartResponse;
-import org.fasttrackit.secondhandOnlineshop.transfer.ProductInCartResponse;
+import org.fasttrackit.secondhandOnlineshop.persistance.ProductRepository;
+import org.fasttrackit.secondhandOnlineshop.transfer.cart.AddProductToCartRequest;
+import org.fasttrackit.secondhandOnlineshop.transfer.cart.CartResponse;
+import org.fasttrackit.secondhandOnlineshop.transfer.cart.UpdateCartRequest;
+import org.fasttrackit.secondhandOnlineshop.transfer.product.ProductInCartResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +28,14 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CustomerService customerService;
     private final ProductService productService;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public CartService(CartRepository cartRepository, CustomerService customerService, ProductService productService) {
+    public CartService(CartRepository cartRepository, CustomerService customerService, ProductService productService, ProductRepository productRepository) {
         this.cartRepository = cartRepository;
         this.customerService = customerService;
         this.productService = productService;
+        this.productRepository = productRepository;
     }
 
     @Transactional
@@ -86,6 +90,38 @@ public class CartService {
         response.setProducts(productsInCart);
         return response;
     }
+
+    public void deleteCart(long id) {
+        LOGGER.info("Deleting cart: {}", id);
+        cartRepository.deleteById(id);
+    }
+
+    public void deleteProductFromCart(long id, long itemId) {
+        Cart cart = cartRepository.findById(id).orElse(new Cart());
+
+        if ((cart.getCustomer() != null)) {
+            LOGGER.info("Cart found.");
+            Product product = productService.getProduct(itemId);
+
+            cart.removeFromCart(product);
+            LOGGER.info("Removing product from cart.");
+
+            cartRepository.save(cart);
+        }
+    }
+
+    public void updateCart(long cartId, UpdateCartRequest request) {
+
+        Cart cart = cartRepository.findById(cartId).orElse(new Cart());
+
+        if (cart.getCustomer() != null) {
+            LOGGER.info("Cart found");
+            Product product = productService.getProduct(request.getProductId());
+            product.setQuantity(request.getQuantity());
+            productRepository.save(product);
+        }
+    }
+
 }
 
 

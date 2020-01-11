@@ -1,4 +1,4 @@
-package org.fasttrackit.secondhandOnlineshop.transfer;
+package org.fasttrackit.secondhandOnlineshop.transfer.product;
 
 //este un dto
 public class ProductInCartResponse {
@@ -6,7 +6,7 @@ public class ProductInCartResponse {
     private Long id;
     private String name;
     private double price;
-
+    private int quantity;
 
 
     public Long getId() {
@@ -33,6 +33,13 @@ public class ProductInCartResponse {
         this.price = price;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     @Override
     public String toString() {
@@ -40,6 +47,7 @@ public class ProductInCartResponse {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", quantity=" + quantity +
                 '}';
     }
 
@@ -47,9 +55,7 @@ public class ProductInCartResponse {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ProductInCartResponse that = (ProductInCartResponse) o;
-
         return id.equals(that.id);
     }
 

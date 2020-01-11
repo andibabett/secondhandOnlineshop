@@ -4,7 +4,7 @@ import org.fasttrackit.secondhandOnlineshop.domain.Customer;
 import org.fasttrackit.secondhandOnlineshop.exception.ResourceNotFoundException;
 import org.fasttrackit.secondhandOnlineshop.service.CustomerService;
 import org.fasttrackit.secondhandOnlineshop.steps.CustomerSteps;
-import org.fasttrackit.secondhandOnlineshop.transfer.SaveCustomerRequest;
+import org.fasttrackit.secondhandOnlineshop.transfer.customer.SaveCustomerRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,7 @@ public class CustomerServiceIntegrationTests {
     @Autowired
     private CustomerSteps customerSteps;
 
+
     @Test
     public void testCreateCustomer_whenValidRequest_thenCustomerIsSaved() {
         customerSteps.createCustomer();
@@ -43,7 +44,6 @@ public class CustomerServiceIntegrationTests {
     @Test
     public void testGetCustomer_whenExistingCustomer_thenReturnCustomer() {
         Customer createCustomer = customerSteps.createCustomer();
-
         Customer customer = customerService.getCustomer(createCustomer.getId());
 
         assertThat(customer, notNullValue());

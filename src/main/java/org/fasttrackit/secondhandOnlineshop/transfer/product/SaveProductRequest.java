@@ -1,4 +1,4 @@
-package org.fasttrackit.secondhandOnlineshop.transfer;
+package org.fasttrackit.secondhandOnlineshop.transfer.product;
 
 import com.sun.istack.NotNull;
 

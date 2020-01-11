@@ -2,7 +2,7 @@ package org.fasttrackit.secondhandOnlineshop.steps;
 
 import org.fasttrackit.secondhandOnlineshop.domain.Product;
 import org.fasttrackit.secondhandOnlineshop.service.ProductService;
-import org.fasttrackit.secondhandOnlineshop.transfer.SaveProductRequest;
+import org.fasttrackit.secondhandOnlineshop.transfer.product.SaveProductRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

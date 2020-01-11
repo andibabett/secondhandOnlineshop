@@ -3,7 +3,7 @@ package org.fasttrackit.secondhandOnlineshop.service;
 import org.fasttrackit.secondhandOnlineshop.domain.Customer;
 import org.fasttrackit.secondhandOnlineshop.exception.ResourceNotFoundException;
 import org.fasttrackit.secondhandOnlineshop.persistance.CustomerRepository;
-import org.fasttrackit.secondhandOnlineshop.transfer.SaveCustomerRequest;
+import org.fasttrackit.secondhandOnlineshop.transfer.customer.SaveCustomerRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
