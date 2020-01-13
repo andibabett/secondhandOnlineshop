@@ -33,7 +33,6 @@ public class UserController {
     public ResponseEntity<User> getUser(@PathVariable("id") long id) {
         User user = userService.getUser(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
-
     }
 
     @GetMapping
@@ -41,5 +40,4 @@ public class UserController {
         User user = userService.getUserEmail(email, password);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-
 }

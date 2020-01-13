@@ -30,7 +30,6 @@ public class UserService {
             LOGGER.info("Email is already registered");
             throw new ValidationException("Email is already registered");
 
-
         } else {
             LOGGER.info("Creating user: {}", request);
             User user = new User();
