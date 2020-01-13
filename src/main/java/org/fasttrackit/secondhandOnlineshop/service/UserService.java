@@ -47,7 +47,7 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public User getUserEmail(String password, String email) {
+    public User getUserEmail(String email, String password) {
         LOGGER.info("Retrieving user: {},", password, email);
         return userRepository.findByEmailAndPassword(password, email).orElseThrow(() -> new ResourceNotFoundException("User doesn't exist"));
     }
