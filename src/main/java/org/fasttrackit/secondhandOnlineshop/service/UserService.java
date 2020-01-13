@@ -26,7 +26,7 @@ public class UserService {
     }
 
     public User createUser(SaveUserRequest request) throws ValidationException {
-        if (emailAlreadyExist(request.getEmail())) {
+        if (userAlreadyExist(request.getEmail())) {
             LOGGER.info("Email is already registered");
             throw new ValidationException("Email is already registered");
 
@@ -47,12 +47,12 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public User getUser(String password, String email) {
+    public User getUserEmail(String password, String email) {
         LOGGER.info("Retrieving user: {},", password, email);
         return userRepository.findByEmailAndPassword(password, email).orElseThrow(() -> new ResourceNotFoundException("User doesn't exist"));
     }
 
-    private boolean emailAlreadyExist(String email) {
+    private boolean userAlreadyExist(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         return user.isPresent();
     }
