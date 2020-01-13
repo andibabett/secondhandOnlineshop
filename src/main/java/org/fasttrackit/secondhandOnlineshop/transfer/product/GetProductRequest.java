@@ -1,6 +1,6 @@
 package org.fasttrackit.secondhandOnlineshop.transfer.product;
 
-public class GetProductsRequest {
+public class GetProductRequest {
 
     private String partialName;
 

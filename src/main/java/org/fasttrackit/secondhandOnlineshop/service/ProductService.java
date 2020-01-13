@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fasttrackit.secondhandOnlineshop.domain.Product;
 import org.fasttrackit.secondhandOnlineshop.exception.ResourceNotFoundException;
 import org.fasttrackit.secondhandOnlineshop.persistance.ProductRepository;
-import org.fasttrackit.secondhandOnlineshop.transfer.product.GetProductsRequest;
+import org.fasttrackit.secondhandOnlineshop.transfer.product.GetProductRequest;
 import org.fasttrackit.secondhandOnlineshop.transfer.product.ProductResponse;
 import org.fasttrackit.secondhandOnlineshop.transfer.product.SaveProductRequest;
 import org.slf4j.Logger;
@@ -26,19 +26,18 @@ public class ProductService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 
     private final ProductRepository productRepository;
-//    private final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     @Autowired
     public ProductService(ProductRepository productRepository, ObjectMapper objectMapper) {
         this.productRepository = productRepository;
-//        this.objectMapper = objectMapper;
+        this.objectMapper = objectMapper;
     }
 
     public Product createProduct(SaveProductRequest request) {
 
         LOGGER.info("Creating product {}", request);
-//        Product product = objectMapper.convertValue(request, Product.class);
-        Product product = new Product();
+        Product product = objectMapper.convertValue(request, Product.class);
         product.setName(request.getName());
         product.setDescription(request.getDescription());
         product.setPrice(request.getPrice());
@@ -69,9 +68,8 @@ public class ProductService {
         LOGGER.info("Deleted product {}", id);
     }
 
-
     @Transactional
-    public Page<ProductResponse> getProducts(GetProductsRequest request, Pageable pageable) {
+    public Page<ProductResponse> getProducts(GetProductRequest request, Pageable pageable) {
         LOGGER.info("Retrieving products: {}", request);
 
         Page<Product> products;
@@ -102,7 +100,6 @@ public class ProductService {
         }
         return new PageImpl<>(productResponses, pageable, products.getTotalElements());
     }
-
 
 
 }
