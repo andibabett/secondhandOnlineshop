@@ -1,6 +1,7 @@
 package org.fasttrackit.secondhandOnlineshop.service;
 
 import org.fasttrackit.secondhandOnlineshop.domain.Review;
+import org.fasttrackit.secondhandOnlineshop.exception.ResourceNotFoundException;
 import org.fasttrackit.secondhandOnlineshop.persistance.ReviewRepository;
 import org.fasttrackit.secondhandOnlineshop.transfer.review.AddReviewToProductRequest;
 import org.fasttrackit.secondhandOnlineshop.transfer.review.SaveReviewRequest;
@@ -41,7 +42,8 @@ public class ReviewService {
 
     public Review getReview(long id) {
         LOGGER.info("Retrieving review {}",id);
-        return reviewRepository.findById(id).orElseThrow(()->new RuntimeException("Review" + id +"not found."));
+        return reviewRepository.findById(id).orElseThrow(()->new ResourceNotFoundException(
+                "Review" + id +"not found."));
     }
 
     public void deleteReview(long id) {

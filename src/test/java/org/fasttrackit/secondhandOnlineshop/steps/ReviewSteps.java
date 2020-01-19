@@ -26,8 +26,8 @@ public class ReviewSteps {
         assertThat(review, notNullValue());
 
         assertThat(review.getId(),greaterThan(0L));
-        assertThat(review.getContent(), is(review.getContent()));
         assertThat(review.getId(), is(review.getId()));
+        assertThat(review.getContent(), is(review.getContent()));
 
        return review;
 

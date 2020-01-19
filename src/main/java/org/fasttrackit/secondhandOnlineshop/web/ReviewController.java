@@ -39,5 +39,15 @@ private final ReviewService reviewService;
         return new ResponseEntity(HttpStatus.NO_CONTENT);
 
     }
+    @PutMapping("/{id}/{itemId}")
+    public ResponseEntity updateReview(@PathVariable("id") long id, @RequestBody @Valid SaveReviewRequest request) {
+        reviewService.updateReview(id, request);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteReview(@PathVariable("id") long id) {
+        reviewService.deleteReview(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
