@@ -46,9 +46,14 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public User getUserEmail(String email, String password) {
-        LOGGER.info("Retrieving user: {},", password, email);
-        return userRepository.findByEmailAndPassword(password, email).orElseThrow(() -> new ResourceNotFoundException("User doesn't exist"));
+    public User getUserByEmail(String email) {
+        LOGGER.info("Retrieving user: {},", email);
+        return userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User doesn't exist"));
+    }
+
+    private User getUserByEmailAndPassword(String email, String password){
+        return getUserByEmailAndPassword(email,password);
+
     }
 
     private boolean userAlreadyExist(String email) {
