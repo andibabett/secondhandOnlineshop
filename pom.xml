@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.fasttrackit</groupId>
-    <artifactId>magazin-de-vopsele</artifactId>
+    <artifactId>secondhand-onlineshop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>magazin-de-vopsele</name>
+    <name>secondhand-onlineshop</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

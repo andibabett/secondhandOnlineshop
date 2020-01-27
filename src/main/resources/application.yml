@@ -1,9 +1,9 @@
-server.port: 8085
+server.port: 8090
 spring:
   jpa:
     hibernate.ddl-auto: update
     hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
   datasource:
-    url: jdbc:mysql://localHost:3306/secondhandOnlineshop
+    url: jdbc:mysql://localhost:3306/secondhandOnlineshop
     username: secondhand
     password: secondhand
